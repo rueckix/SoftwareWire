@@ -15,6 +15,15 @@
 
 #define SOFTWAREWIRE_BUFSIZE 32        // same as buffer size of Arduino Wire library
 
+// patch to make this work with STM32 boards
+#if defined(ARDUINO_ARCH_STM32)
+  typedef uint32_t tPin;
+  typedef GPIO_TypeDef* tPort;
+#else
+  typedef uint8_t tPin;
+  typedef uint8_t tPort;
+#endif
+
 
 class SoftwareWire : public TwoWire
 {
